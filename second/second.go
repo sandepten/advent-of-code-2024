@@ -27,7 +27,15 @@ func main() {
 				list = append(list, value)
 			}
 		}
-		if checkListSafetiness(list) {
+		if !checkListSafetiness(list) {
+			for i := 0; i < len(list); i++ {
+				listProblemDampner := removeElement(list, i)
+				if checkListSafetiness(listProblemDampner) {
+					totalSafe++
+					break
+				}
+			}
+		} else {
 			totalSafe++
 		}
 	}
@@ -48,4 +56,11 @@ func checkListSafetiness(list []int) bool {
 		}
 	}
 	return true
+}
+
+func removeElement(list []int, index int) []int {
+	result := make([]int, 0, len(list)-1)
+	result = append(result, list[:index]...)
+	result = append(result, list[index+1:]...)
+	return result
 }
