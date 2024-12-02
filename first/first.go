@@ -46,6 +46,8 @@ func getLists() ([]int, []int) {
 		}
 	}
 
+	readFile.Close()
+
 	return list1, list2
 }
 
