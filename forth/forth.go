@@ -32,6 +32,7 @@ func main() {
 	totalCount += countVertical(xmasMatrix)
 	totalCount += countDiagonal(xmasMatrix)
 	fmt.Println(totalCount)
+	fmt.Println("Actual XMAS Count: ", countActualXMas(xmasMatrix))
 
 	readFile.Close()
 }
@@ -96,6 +97,25 @@ func countDiagonal(xmasMatrix [][]string) int {
 				}
 			}
 			if currWord == "XMAS" || currWord == "SAMX" {
+				xmasCount++
+			}
+		}
+	}
+
+	return xmasCount
+}
+
+func countActualXMas(xmasMatrix [][]string) int {
+	xmasCount := 0
+
+	for i := 1; i < len(xmasMatrix)-1; i++ {
+		for j := 1; j < len(xmasMatrix[i])-1; j++ {
+			if xmasMatrix[i][j] != "A" {
+				continue
+			}
+			leftX := xmasMatrix[i-1][j-1] + xmasMatrix[i][j] + xmasMatrix[i+1][j+1]
+			rightX := xmasMatrix[i-1][j+1] + xmasMatrix[i][j] + xmasMatrix[i+1][j-1]
+			if (leftX == "MAS" || leftX == "SAM") && (rightX == "MAS" || rightX == "SAM") {
 				xmasCount++
 			}
 		}
